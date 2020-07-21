@@ -1,8 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import DayCreateForm
+from .models import Day
 
 def index(request):
-    return render(request, 'diary/day_list.html')
+    context = {
+        'day_list': Day.objects.all(),
+    }
+    return render(request, 'diary/day_list.html', context)
 
 def add(request):
     # 送信内容を基にフォームを作る。POSTじゃなければ、空のフォーム
